@@ -20,6 +20,23 @@ response = requests.get(url, headers = headers)
 tree = html.fromstring(response.content.decode('UTF-8'))
 companylist = tree.xpath("//*/div[@class='list-ct']/div/ul/li/a[@target='_blank']")
 
+with open('./brief.csv', 'a') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    titles = ['share_code','company','english_name','address','shortname','legal_person','security','registrated_fund','Principal activities','post code','telephone','fax','website','listed time','prospectus time','Circulation','issue time','PE ration','issuing way','lead underwriter','listing sponsor','sponsor institution']
+    writer.writerow(titles)
+
+
+with open('./manager.csv', 'a') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    titles = ['name','position','birth_year','gender','education_background','share_code']
+    writer.writerow(titles)
+
+
+with open('./shareholder.csv', 'a') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    titles = ['shareholder','value','percent','share_type','share_code']
+    writer.writerow(titles)
+
 
 def brief_info(brief_link='http://www.cninfo.com.cn/information/brief/szmb000001.html', share_code='000001'):
     """
