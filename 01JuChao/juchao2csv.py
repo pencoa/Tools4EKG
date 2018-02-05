@@ -20,6 +20,7 @@ response = requests.get(url, headers = headers)
 tree = html.fromstring(response.content.decode('UTF-8'))
 companylist = tree.xpath("//*/div[@class='list-ct']/div/ul/li/a[@target='_blank']")
 
+
 with open('./brief.csv', 'a') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
     titles = ['share_code','company','english_name','address','shortname','legal_person','security','registrated_fund','Principal activities','post code','telephone','fax','website','listed time','prospectus time','Circulation','issue time','PE ration','issuing way','lead underwriter','listing sponsor','sponsor institution']
