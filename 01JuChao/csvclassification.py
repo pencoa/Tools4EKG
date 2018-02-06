@@ -25,7 +25,7 @@ with open('./data/shareholder.csv') as csv_file:
     readCSV = csv.reader(csv_file, delimiter=',')
     for row in readCSV:
         if len(row[0]) > 4:
-            if '基金' in row[0] or 'FUND' in row[0]:
+            if '基金' in row[0] or 'FUND' in row[0] or '计划' in row[0] or '-' in row[0]:
                 with open('./data/share_fund.csv', 'a') as csvfile:
                     writer = csv.writer(csvfile, delimiter=',')
                     writer.writerow(row)
