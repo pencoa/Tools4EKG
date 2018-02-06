@@ -55,6 +55,36 @@ CREATE (people)-[r:法人]->(company)
 ;
 
 
+// 增加基金股东
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///Users/randypen/Code/Tools4EKG/01JuChao/data/share_fund.csv' AS line
+WITH line
+MERGE (f:FUND { name:line.shareholder })
+WITH line, f
+MATCH (company:Company)
+WHERE company.share_code = line.share_code
+WITH line, f, company
+CREATE (f)-[r:股东]->(company)
+SET r.份额 = line.percent
+;
+
+
+// 增加公司股东
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///Users/randypen/Code/Tools4EKG/01JuChao/data/share_company.csv' AS line
+WITH line
+MERGE (f:Company { name:line.shareholder })
+WITH line, f
+MATCH (company:Company)
+WHERE company.share_code = line.share_code
+WITH line, f, company
+CREATE (f)-[r:股东]->(company)
+SET r.份额 = line.percent
+;
+
+
 // MATCH p=()-->()
 // RETURN p;
 //
