@@ -9,3 +9,11 @@ pipenv run python juchao2csv.py
 - shareholder.csv 十大股东信息
 - company_list.csv 内地上市公司列表
 - hk_company_list.csv 香港上市公司列表
+
+### juchao2csv.py
+
+
+### duplicated.py
+
+
+### load.cql

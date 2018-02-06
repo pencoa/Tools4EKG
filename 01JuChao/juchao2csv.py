@@ -108,7 +108,7 @@ for company in companylist:
     company_code = matchSub.group(1)
     brief_link        = 'http://www.cninfo.com.cn/information/brief/' + company_code + '.html'           # 公司概况
     management_link   = 'http://www.cninfo.com.cn/information/management/' + company_code + '.html'      # 高管人员
-    shareholders_link = 'http://www.cninfo.com.cn/information/shareholders/' + share_code + '.html'      # 十大股东
+    shareholders_link = 'http://www.cninfo.com.cn/information/circulateshareholders/' + share_code + '.html'      # 十大股东
     brief_info(brief_link, share_code)
     sleep(5)
     manager_info(management_link, share_code)
@@ -125,7 +125,7 @@ for company in companylist:
 #         share_code = row[2][-6:]
 #         brief_link        = 'http://www.cninfo.com.cn/information/brief/' + company_code + '.html'           # 公司概况
 #         management_link   = 'http://www.cninfo.com.cn/information/management/' + company_code + '.html'      # 高管人员
-#         shareholders_link = 'http://www.cninfo.com.cn/information/shareholders/' + share_code + '.html'      # 十大股东
+#         shareholders_link = 'http://www.cninfo.com.cn/information/circulateshareholders/' + share_code + '.html'      # 十大股东
 #         brief_info(brief_link, share_code)
 #         manager_info(management_link, share_code)
 #         shareholders_info(shareholders_link, share_code)
