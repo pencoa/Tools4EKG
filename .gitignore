@@ -1,2 +1,5 @@
 *.txt
 *.pyc
+.DS_Store
+*.html
+test.py
