@@ -34,8 +34,9 @@ def get_zcfzb(code='sz300365'):
     response = request.get(base_url, params={'companyType':4, 'reportDateType':0, 'reportType':1 ,'code': code})
     if response.status_code != 200:
         response = get_shareholders(code)
-    return response.json()
-
+    jl = response.json()
+    js = json.loads(jl)
+    return js
 
 
 if __name__ == '__main__':
@@ -48,6 +49,6 @@ if __name__ == '__main__':
     for row in readCSV:
         code = row[1]
         js = get_zcfzb(code)
-        save_MainTarget(js, code)
+        save_zcfzb(js, code)
 
     CSVfile.close()
