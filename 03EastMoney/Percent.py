@@ -11,7 +11,8 @@ def save_Percent(js, code='sz300365'):
     if not js:
         return
     code = code[2:]
-    for i in js:
+    result = js['Result']
+    for i in result['lr0']:
         i['code'] = code
         with open('./data/NewFinanceAnalysis/Percent.csv', 'a') as csv_file:
             writer = csv.writer(csv_file, delimiter=',')

@@ -8,15 +8,15 @@ request = WebRequest()
 
 
 def save_PercentAjax_Indx(js, code='sz300365'):
-    if not js:
+    if not js['zb']:
         return
     code = code[2:]
-    for i in js:
-        i['code'] = code
-        with open('./data/NewFinanceAnalysis/PercentAjax_Indx.csv', 'a') as csv_file:
-            writer = csv.writer(csv_file, delimiter=',')
-            info = i.values()
-            writer.writerow(info)
+    i = js['zb']
+    i['code'] = code
+    with open('./data/NewFinanceAnalysis/PercentAjax_Indx.csv', 'a') as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        info = i.values()
+        writer.writerow(info)
     return
 
 
