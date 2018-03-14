@@ -23,6 +23,8 @@ def save_jyps(js, code='sz300365'):
     code = code[2:]
     if js['jyps'] is None:
         return
+    if js['jyps'][0]['ms'] is None:
+        return
     ms = js['jyps'][0]['ms']
     with open('./data/BusinessAnalysis/jyps.csv', 'a') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
