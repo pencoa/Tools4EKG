@@ -7,6 +7,15 @@ import json
 request = WebRequest()
 
 
+def save_hxtc(js):
+    if not js['hxtc']:
+        return
+    for i in js['hxtc']:
+        with open('./data/CoreConception/hxtc.csv', 'a') as csv_file:
+            writer = csv.writer(csv_file, delimiter=',')
+            info = i.values()
+            writer.writerow(info)
+    return
 
 
 def get_coreconception(code='sz000001'):
@@ -18,3 +27,15 @@ def get_coreconception(code='sz000001'):
 
 
 js = get_coreconception()
+
+
+if __name__ == '__main__':
+    CSVfile = open('./data/code_list.csv', 'r')
+    readCSV = csv.reader(CSVfile, delimiter=',')
+
+    for row in readCSV:
+        code = row[1]
+        js = get_coreconception(code)
+        save_hxtc(js)
+
+    CSVfile.close()

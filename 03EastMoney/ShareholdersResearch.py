@@ -46,7 +46,7 @@ def save_sdgd(js, code='sz300365'):
 
 def save_jjcg(js, code='sz300365'):
     code = code[2:]
-    if js['jjcg'] is None:
+    if not js['jjcg']:
         return
     for i in js['jjcg']:
         rq = i['rq']
@@ -63,7 +63,7 @@ def save_jjcg(js, code='sz300365'):
 
 def save_xsjj(js, code='sz300365'):
     code = code[2:]
-    if js['xsjj'] is None:
+    if not js['xsjj']:
         return
     for i in js['xsjj']:
         with open('./data/ShareHoldersResearch/xsjj.csv', 'a') as csv_file:
