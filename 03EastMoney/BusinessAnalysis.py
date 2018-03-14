@@ -11,6 +11,8 @@ def save_zyfw(js, code='sz300365'):
     code = code[2:]
     if js['zyfw'] is None:
         return
+    if len(js['zyfw']) == 0:
+        return
     ms = js['zyfw'][0]['ms']
     with open('./data/BusinessAnalysis/zyfw.csv', 'a') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
@@ -23,7 +25,7 @@ def save_jyps(js, code='sz300365'):
     code = code[2:]
     if js['jyps'] is None:
         return
-    if js['jyps'][0]['ms'] is None:
+    if len(js['jyps']) == 0:
         return
     ms = js['jyps'][0]['ms']
     with open('./data/BusinessAnalysis/jyps.csv', 'a') as csv_file:
@@ -36,6 +38,8 @@ def save_jyps(js, code='sz300365'):
 def save_hy(js, code='sz300365'):
     code = code[2:]
     if js['zygcfx'] is None:
+        return
+    if len(js['zygcfx']) == 0:
         return
     if js['zygcfx'][0]['hy'] is None:
         return
@@ -54,6 +58,8 @@ def save_cp(js, code='sz300365'):
     code = code[2:]
     if js['zygcfx'] is None:
         return
+    if len(js['zygcfx']) == 0:
+        return
     if js['zygcfx'][0]['cp'] is None:
         return
     for i in js['zygcfx']:
@@ -70,6 +76,8 @@ def save_cp(js, code='sz300365'):
 def save_qy(js, code='sz300365'):
     code = code[2:]
     if js['zygcfx'] is None:
+        return
+    if len(js['zygcfx']) == 0:
         return
     if js['zygcfx'][0]['qy'] is None:
         return
