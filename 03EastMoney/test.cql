@@ -205,8 +205,7 @@ WITH line, c
 MERGE (
   d:Company
   {
-    name: line.股东名称,
-    性质: line.股东性质
+    name: line.股东名称
   }
 )
 WITH line, c, d
