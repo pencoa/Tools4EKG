@@ -152,3 +152,21 @@ SET r.日期 = line.日期,
     r.占净值比 = line.占净值比,
     r.持仓 = line.持仓
 ;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/grengd.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.code})
+WITH line, c
+MATCH (p: Person)-[r:任职]->(c)
+WHERE p.姓名 = line.股东名称
+WITH line, c, p
+MERGE (p)-[r:持股]->(c)
+SET r.日期 = line.日期,
+    r.股份类型 = line.股份类型,
+    r.`持股数(股)` = line.`持股数(股)`,
+    r.占流通比 = line.占总流通股本持股比例
+;
