@@ -103,3 +103,9 @@ check.to_csv('./fundgd_170930.csv', index=False)
 df = pd.read_csv('./untrust.csv', dtype={'code':str})
 check = df[df['日期']=='2017-09-30']
 check.to_csv('./cmgd_170930.csv', index=False)
+
+
+selfhold = check[check['股东名称'].str.contains('自有资金')]
+selfhold.to_csv('./cmgdselfhold_170930.csv', index=False)
+leaf = check[~check['股东名称'].str.contains('自有资金')]
+leaf.to_csv('./cmgd_170930.csv', index=False)

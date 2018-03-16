@@ -156,7 +156,7 @@ SET r.日期 = line.日期,
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM
-'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/grengd.csv' AS line
+'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/grengd_170930.csv' AS line
 
 WITH line
 MATCH (c: Company {share_code: line.code})
@@ -165,6 +165,52 @@ MATCH (p: Person)-[r:任职]->(c)
 WHERE p.姓名 = line.股东名称
 WITH line, c, p
 MERGE (p)-[r:持股]->(c)
+SET r.日期 = line.日期,
+    r.股份类型 = line.股份类型,
+    r.`持股数(股)` = line.`持股数(股)`,
+    r.占流通比 = line.占总流通股本持股比例
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/fundgd_170930.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.code})
+WITH line, c
+MERGE (
+  f:Fund
+  {
+    名称: line.股东名称,
+    性质: line.股东性质
+  }
+)
+WITH line, c, f
+MERGE (f)-[r:持股]->(c)
+SET r.日期 = line.日期,
+    r.股份类型 = line.股份类型,
+    r.`持股数(股)` = line.`持股数(股)`,
+    r.占流通比 = line.占总流通股本持股比例
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/cmgd_170930.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.code})
+WITH line, c
+MERGE (
+  d:Company
+  {
+    name: line.股东名称,
+    性质: line.股东性质
+  }
+)
+WITH line, c, d
+MERGE (d)-[r:持股]->(c)
 SET r.日期 = line.日期,
     r.股份类型 = line.股份类型,
     r.`持股数(股)` = line.`持股数(股)`,
