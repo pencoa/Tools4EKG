@@ -23,3 +23,9 @@ check.to_csv('./data/shareholder1.csv', index=False)
 df = pd.read_csv('./data/share_person.csv')
 df['duplicated'] = df.duplicated('shareholder')
 df_dup = df[df['duplicated']]
+
+df = pd.read_csv('./jjcg.csv',dtype={'基金代码':str, '公司代码':str})
+df['持股数(股)'].replace(',','',inplace=True, regex=True)
+df['持股数(股)'] = pd.to_numeric(df['持股数(股)'], errors='raise', downcast='integer')
+df['持仓市值(元)'].replace(',','',inplace=True, regex=True)
+df.to_csv('./jjcg_dup.csv', index=False)
