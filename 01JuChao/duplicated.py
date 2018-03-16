@@ -29,3 +29,24 @@ df['持股数(股)'].replace(',','',inplace=True, regex=True)
 df['持股数(股)'] = pd.to_numeric(df['持股数(股)'], errors='raise', downcast='integer')
 df['持仓市值(元)'].replace(',','',inplace=True, regex=True)
 df.to_csv('./jjcg_dup.csv', index=False)
+
+
+df = pd.read_csv('./sdltgd.csv',dtype={'code':str})
+df['持股数(股)'].replace(',','',inplace=True, regex=True)
+check = df.drop(columns=['名次'])
+people = check[check['股东性质']=='个人']
+other = check[check['股东性质'] != '个人']
+people.to_csv('./grengd.csv', index=False)
+other.to_csv('./qitagd.csv', index=False)
+
+
+```
+分类
+
+基金资产管理计划
+
+------------------
+
+
+
+```

@@ -130,7 +130,7 @@ MATCH (n) WITH n LIMIT 250 MATCH (m)-->(n) RETURN m, n;
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM
-'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/jjcg.csv' AS line
+'file:///home/penzm/Tools4EKG/03EastMoney/data/ShareHoldersResearch/jjcg_dup.csv' AS line
 
 WITH line
 MERGE (
@@ -140,7 +140,15 @@ MERGE (
     基金代码: line.基金代码
   }
 )
-
+WITH line, f
 MATCH (c: Company {share_code: line.公司代码})
-WITH f, c
+WITH f, c, line
 MERGE (f)-[r:持股]->(c)
+SET r.日期 = line.日期,
+    r.`持股数(股)` = line.`持股数(股)`,
+    r.`持仓市值(元)` = line.`持仓市值(元)`,
+    r.占总股本比 = line.占总股本比,
+    r.占流通比 = line.占流通比,
+    r.占净值比 = line.占净值比,
+    r.持仓 = line.持仓
+;
