@@ -5,14 +5,14 @@ def finder(entity):
     db = client['QAdb']
     ans_rt = []
     for u in db.zhishime.find({'head':entity}):
-        ans_rt.append((u['relation'],u['tail']))
-    return (entity,ans_rt)
+        ans_rt.append((['relation'],['tail']))
+    return entity, ans_rt
 
 
 if __name__ == '__main__':
     with open('./data/CompanySurvey/lawoffice.txt', 'r') as file:
         for line in file:
-            spo = finder(line)
+            entity, spo = finder(line)
             if len(spo) > 1:
                 for u in spo:
-                    print(u)
+                    print(entity, u)
