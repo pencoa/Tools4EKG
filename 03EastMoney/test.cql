@@ -67,6 +67,43 @@ LOAD CSV WITH HEADERS FROM
 'file:///home/penzm/Tools4EKG/03EastMoney/data/CompanySurvey/jbzl.csv' AS line
 
 WITH line
+MATCH (b:Company) WHERE b.share_code = line.公司代码
+WITH split(line.律师事务所, ',') as splitted, b
+UNWIND range(0, size(splitted)-1) as i
+MERGE (
+  m:Org
+  {
+    name: splitted[i],
+    type: '律师事务所'
+  }
+)
+MERGE (m)-[r:服务]->(b)
+;
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/CompanySurvey/jbzl.csv' AS line
+
+WITH line
+MATCH (b:Company) WHERE b.share_code = line.公司代码
+WITH split(line.会计师事务所, ',') as splitted, b
+UNWIND range(0, size(splitted)-1) as i
+MERGE (
+  m:Org
+  {
+    name: splitted[i],
+    type: '会计师事务所'
+  }
+)
+MERGE (m)-[r:服务]->(b)
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/CompanySurvey/jbzl.csv' AS line
+
+WITH line
 MATCH (a:Org) WHERE a.name = line.会计师事务所
 WITH line, a
 MATCH (b:Company) WHERE b.share_code = line.公司代码
