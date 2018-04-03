@@ -252,3 +252,70 @@ SET r.日期 = line.日期,
     r.`持股数(股)` = line.`持股数(股)`,
     r.占流通比 = line.占总流通股本持股比例
 ;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/01JuChao/data/brief.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.share_code})
+WITH split(line.主承销商, ' ') as splitted, c
+UNWIND range(0, size(splitted)-1) as i
+MERGE (m:Company {name: splitted[i]})
+MERGE (c)-[r:主承销商]->(m)
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/01JuChao/data/brief.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.share_code})
+WITH split(line.上市推荐人, ' ') as splitted, c
+UNWIND range(0, size(splitted)-1) as i
+MERGE (m:Company {name: splitted[i]})
+MERGE (c)-[r:上市推荐人]->(m)
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/01JuChao/data/brief.csv' AS line
+
+WITH line
+MATCH (c: Company {share_code: line.share_code})
+WITH split(line.保荐机构, ' ') as splitted, c
+UNWIND range(0, size(splitted)-1) as i
+MERGE (m:Company {name: splitted[i]})
+MERGE (c)-[r:保荐机构]->(m)
+;
+
+
+MATCH (c:Company)
+WHERE ID(c) = 96086
+DETACH DELETE c
+;
+
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/03EastMoney/data/CompanySurvey/jbzl.csv' AS line
+
+WITH line
+MATCH (c:Company {share_code: line.公司代码})
+WITH line, c
+SET c.办公地址 = line.办公地址,
+    c.注册地址 = line.注册地址
+;
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///home/penzm/Tools4EKG/01JuChao/data/brief.csv' AS line
+
+WITH line
+MATCH (c:Company {share_code: line.share_code})
+WITH line, c
+SET c.行业种类 = line.`Principal activities`
+;
