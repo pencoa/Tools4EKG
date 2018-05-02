@@ -306,8 +306,14 @@ LOAD CSV WITH HEADERS FROM
 WITH line
 MATCH (c:Company {share_code: line.公司代码})
 WITH line, c
-SET c.办公地址 = line.办公地址,
-    c.注册地址 = line.注册地址
+SET c.曾用名 = line.曾用名,
+    c.`A股代码` = line.`A股代码`,
+    c.`A股简称` = line.`A股简称`,
+    c.`B股代码` = line.`B股代码`,
+    c.`B股简称` = line.`B股简称`,
+    c.`H股代码` = line.`H股代码`,
+    c.`H股简称` = line.`H股简称`,
+    c.`证券类别` = line.`证券类别`
 ;
 
 USING PERIODIC COMMIT
